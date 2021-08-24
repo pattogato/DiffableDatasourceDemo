@@ -8,12 +8,12 @@
 import Foundation
 
 enum WeatherData {
-    static let sample: [DayEntry] = (0...9).map({
+    static let sample: [DayEntry] = (0...20).map({
         DayEntry(
             name: Constants.days[$0 % 6],
             icon: .random(),
-            minTemp: "\(Int.random(in: 12...18))",
-            maxTemp: "\(Int.random(in: 19...34))",
+            minTemp: "\(Int.random(in: 12...18))°",
+            maxTemp: "\(Int.random(in: 19...34))°",
             hours: makeRandomHourEntriesForADay()
         )
     })
@@ -23,7 +23,7 @@ enum WeatherData {
             HourEntry(
                 time: "\($0):00",
                 icon: .random(),
-                temperature: "\(Int.random(in: 12...34))"
+                temperature: "\(Int.random(in: 12...34))°"
             )
         })
     }
@@ -42,6 +42,6 @@ extension WeatherViewModel {
 
 enum Constants {
     static let days: [String] = [
-        "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
     ]
 }

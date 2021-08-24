@@ -37,19 +37,30 @@ private extension NSCollectionLayoutSection {
 
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1/7),
-            heightDimension: .fractionalHeight(1)
+            heightDimension: .absolute(88)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .absolute(44)
+            ),
+            elementKind: "HourlyHeader",
+            alignment: .top
+        )
 
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 8
         section.contentInsets = NSDirectionalEdgeInsets(
-            top: 0,
+            top: 16,
             leading: 8,
             bottom: 0,
             trailing: 8
         )
         section.orthogonalScrollingBehavior = .continuous
+        section.boundarySupplementaryItems = [sectionHeader]
+        
 
         return section
     }
@@ -63,19 +74,19 @@ private extension NSCollectionLayoutSection {
 
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalHeight(44)
+            heightDimension: .absolute(50)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 8
+
         section.contentInsets = NSDirectionalEdgeInsets(
             top: 0,
             leading: 8,
             bottom: 0,
             trailing: 8
         )
-        section.orthogonalScrollingBehavior = .continuous
 
         return section
     }

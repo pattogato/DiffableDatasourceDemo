@@ -20,4 +20,11 @@ class DailyEntryCollectionViewCell: UICollectionViewCell {
         minTempLabel.text = viewModel.minTemp
         maxTempLabel.text = viewModel.maxTemp
     }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        layer.masksToBounds = true
+        layer.cornerRadius = 8
+    }
 }

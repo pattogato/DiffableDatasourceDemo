@@ -33,13 +33,15 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         collectionView.dataSource = dataSource
-        collectionView.collectionViewLayout = WeatherCollectionViewLayout()
+        collectionView.setCollectionViewLayout(WeatherCollectionViewLayout(), animated: false)
         self.configure(with: WeatherViewModel(days: WeatherData.sample))
     }
 
     private var viewModel: WeatherViewModel?
 
     func configure(with viewModel: WeatherViewModel) {
+        self.viewModel = viewModel
+        title = viewModel.title
         dataSource.apply(makeSnapshot())
     }
 

@@ -17,4 +17,11 @@ class HourlyEntryCollectionViewCell: UICollectionViewCell {
         iconLabel.text = viewModel.icon.rawValue
         tempLabel.text = viewModel.temperature
     }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        layer.masksToBounds = true
+        layer.cornerRadius = 8
+    }
 }
