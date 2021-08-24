@@ -60,7 +60,6 @@ private extension NSCollectionLayoutSection {
         )
         section.orthogonalScrollingBehavior = .continuous
         section.boundarySupplementaryItems = [sectionHeader]
-        
 
         return section
     }
