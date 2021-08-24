@@ -21,6 +21,15 @@ struct WeatherViewModel {
             case .daily: return 1
             }
         }
+
+        var headerName: String {
+            switch self {
+            case .hourly:
+                return "Daily weather"
+            case .daily:
+                return "Upcoming days"
+            }
+        }
     }
 }
 
@@ -32,8 +41,7 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        collectionView.dataSource = dataSource
-        collectionView.setCollectionViewLayout(WeatherCollectionViewLayout(), animated: false)
+        setupCollectionView()
         self.configure(with: WeatherViewModel(days: WeatherData.sample))
     }
 
@@ -43,6 +51,16 @@ class WeatherViewController: UIViewController {
         self.viewModel = viewModel
         title = viewModel.title
         dataSource.apply(makeSnapshot())
+    }
+
+    private func setupCollectionView() {
+        collectionView.dataSource = dataSource
+        collectionView.setCollectionViewLayout(WeatherCollectionViewLayout(), animated: false)
+        collectionView.register(
+            WeatherHeaderView.self,
+            forSupplementaryViewOfKind: WeatherHeaderView.sectionHeaderElementKind,
+            withReuseIdentifier: WeatherHeaderView.reuseIdentifier
+        )
     }
 
     private func makeSnapshot() -> NSDiffableDataSourceSnapshot<WeatherViewModel.Section, AnyHashable> {

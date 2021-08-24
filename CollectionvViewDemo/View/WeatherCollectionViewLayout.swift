@@ -46,20 +46,21 @@ private extension NSCollectionLayoutSection {
                 widthDimension: .fractionalWidth(1),
                 heightDimension: .absolute(44)
             ),
-            elementKind: "HourlyHeader",
+            elementKind: WeatherHeaderView.sectionHeaderElementKind,
             alignment: .top
         )
 
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 8
         section.contentInsets = NSDirectionalEdgeInsets(
-            top: 16,
+            top: 8,
             leading: 8,
             bottom: 0,
             trailing: 8
         )
         section.orthogonalScrollingBehavior = .continuous
         section.boundarySupplementaryItems = [sectionHeader]
+        section.supplementariesFollowContentInsets = true
 
         return section
     }
@@ -77,6 +78,15 @@ private extension NSCollectionLayoutSection {
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .absolute(44)
+            ),
+            elementKind: WeatherHeaderView.sectionHeaderElementKind,
+            alignment: .top
+        )
+
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 8
 
@@ -86,6 +96,7 @@ private extension NSCollectionLayoutSection {
             bottom: 0,
             trailing: 8
         )
+        section.boundarySupplementaryItems = [sectionHeader]
 
         return section
     }

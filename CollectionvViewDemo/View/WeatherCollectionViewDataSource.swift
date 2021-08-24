@@ -25,5 +25,25 @@ final class WeatherCollectionViewDataSource: UICollectionViewDiffableDataSource<
                 fatalError("Not covered section and item type combination for item: \(item) with section type: \(sectionType) position: \(indexPath)")
             }
         }
+
+        supplementaryViewProvider = { (
+          collectionView: UICollectionView,
+          kind: String,
+          indexPath: IndexPath)
+            -> UICollectionReusableView? in
+
+          guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: WeatherHeaderView.reuseIdentifier,
+            for: indexPath) as? WeatherHeaderView else {
+              fatalError("Cannot create header view")
+          }
+
+            supplementaryView.configure(
+                with: WeatherViewModel.Section.allCases[indexPath.section].headerName
+            )
+            
+          return supplementaryView
+        }
     }
 }

@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WcM-FU-79t">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <collectionViewLayout key="collectionViewLayout" id="xkF-ec-IPy"/>
                                 <cells>
@@ -140,7 +140,7 @@
                         <constraints>
                             <constraint firstItem="WcM-FU-79t" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0hV-6l-Mle"/>
                             <constraint firstItem="WcM-FU-79t" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ApD-MX-1yS"/>
-                            <constraint firstItem="WcM-FU-79t" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Zbq-Hz-NHY"/>
+                            <constraint firstItem="WcM-FU-79t" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="Zbq-Hz-NHY"/>
                             <constraint firstItem="WcM-FU-79t" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="wDr-IV-y38"/>
                         </constraints>
                     </view>
