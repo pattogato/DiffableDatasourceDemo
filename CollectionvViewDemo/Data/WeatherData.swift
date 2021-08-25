@@ -20,7 +20,7 @@ enum WeatherData {
     })
 
     private static func makeRandomHourEntriesForADay() -> [HourlyEntry] {
-        (0...23).map({
+        (6...20).map({
             HourlyEntry(
                 time: "\($0):00",
                 icon: .random(),
