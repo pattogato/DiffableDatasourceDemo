@@ -7,8 +7,6 @@
 
 import UIKit
 
-
-
 class WeatherViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
