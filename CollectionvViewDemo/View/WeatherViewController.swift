@@ -7,36 +7,13 @@
 
 import UIKit
 
-struct WeatherViewModel {
-    var sections: [Section: [AnyHashable]]
-    let title: String
 
-    enum Section: Int, Hashable, CaseIterable {
-        case hourly
-        case daily
-
-        var order: Int {
-            switch self {
-            case .hourly: return 0
-            case .daily: return 1
-            }
-        }
-
-        var headerName: String {
-            switch self {
-            case .hourly:
-                return "Daily weather"
-            case .daily:
-                return "Upcoming days"
-            }
-        }
-    }
-}
 
 class WeatherViewController: UIViewController {
-
     @IBOutlet weak var collectionView: UICollectionView!
+
     private lazy var dataSource = WeatherCollectionViewDataSource(collectionView: collectionView)
+    private var viewModel: WeatherViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,22 +22,24 @@ class WeatherViewController: UIViewController {
         self.configure(with: WeatherViewModel(days: WeatherData.sample))
     }
 
-    private var viewModel: WeatherViewModel?
-
-    func configure(with viewModel: WeatherViewModel) {
-        self.viewModel = viewModel
-        title = viewModel.title
-        dataSource.apply(makeSnapshot())
-    }
-
     private func setupCollectionView() {
-        collectionView.dataSource = dataSource
+        collectionView.delegate = self
         collectionView.setCollectionViewLayout(WeatherCollectionViewLayout(), animated: false)
         collectionView.register(
             WeatherHeaderView.self,
             forSupplementaryViewOfKind: WeatherHeaderView.sectionHeaderElementKind,
             withReuseIdentifier: WeatherHeaderView.reuseIdentifier
         )
+    }
+}
+
+// MARK: - Data handling
+
+extension WeatherViewController {
+    func configure(with viewModel: WeatherViewModel) {
+        self.viewModel = viewModel
+        title = viewModel.title
+        reloadData()
     }
 
     private func makeSnapshot() -> NSDiffableDataSourceSnapshot<WeatherViewModel.Section, AnyHashable> {
@@ -74,6 +53,24 @@ class WeatherViewController: UIViewController {
         return snapshot
     }
 
+    private func reloadData() {
+        dataSource.apply(makeSnapshot(), animatingDifferences: true)
+    }
+}
+
+extension WeatherViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard
+            let item = dataSource.itemIdentifier(for: indexPath) as? DailyEntry,
+            !item.selected
+        else { return }
+
+        if let previousItem = viewModel?.selectedDailyEntry {
+            viewModel?.deselect(dailyEntry: previousItem)
+        }
+        viewModel?.select(dailyEntry: item)
+        reloadData()
+    }
 }
 
 enum WeatherIcon: String, CaseIterable {
@@ -86,15 +83,17 @@ enum WeatherIcon: String, CaseIterable {
     }
 }
 
-struct DayEntry: Hashable {
+struct DailyEntry: Hashable {
     let name: String
     let icon: WeatherIcon
     let minTemp: String
     let maxTemp: String
-    let hours: [HourEntry]
+    let hours: [HourlyEntry]
+    let id = UUID()
+    var selected: Bool
 }
 
-struct HourEntry: Hashable {
+struct HourlyEntry: Hashable {
     let time: String
     let icon: WeatherIcon
     let temperature: String

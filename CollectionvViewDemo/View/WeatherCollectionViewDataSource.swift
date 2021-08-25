@@ -12,11 +12,11 @@ final class WeatherCollectionViewDataSource: UICollectionViewDiffableDataSource<
     init(collectionView: UICollectionView) {
         super.init(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, item: AnyHashable) -> UICollectionViewCell? in
             switch item {
-            case let hourEntry as HourEntry:
+            case let hourEntry as HourlyEntry:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyEntryCell", for: indexPath)
                 (cell as? HourlyEntryCollectionViewCell)?.configure(with: hourEntry)
                 return cell
-            case let dayEntry as DayEntry:
+            case let dayEntry as DailyEntry:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DailyEntryCell", for: indexPath)
                 (cell as? DailyEntryCollectionViewCell)?.configure(with: dayEntry)
                 return cell

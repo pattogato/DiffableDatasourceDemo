@@ -14,11 +14,12 @@ class DailyEntryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var minTempLabel: UILabel!
     @IBOutlet weak var maxTempLabel: UILabel!
 
-    func configure(with viewModel: DayEntry) {
+    func configure(with viewModel: DailyEntry) {
         dayLabel.text = viewModel.name
         iconLabel.text = viewModel.icon.rawValue
         minTempLabel.text = viewModel.minTemp
         maxTempLabel.text = viewModel.maxTemp
+        backgroundColor = viewModel.selected ? .systemGray3 : .systemBackground
     }
 
     override func awakeFromNib() {

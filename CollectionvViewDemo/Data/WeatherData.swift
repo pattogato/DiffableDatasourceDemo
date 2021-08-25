@@ -8,19 +8,20 @@
 import Foundation
 
 enum WeatherData {
-    static let sample: [DayEntry] = (0...20).map({
-        DayEntry(
+    static let sample: [DailyEntry] = (0...20).map({
+        DailyEntry(
             name: Constants.days[$0 % 6],
             icon: .random(),
             minTemp: "\(Int.random(in: 12...18))°",
             maxTemp: "\(Int.random(in: 19...34))°",
-            hours: makeRandomHourEntriesForADay()
+            hours: makeRandomHourEntriesForADay(),
+            selected: $0 == 0
         )
     })
 
-    private static func makeRandomHourEntriesForADay() -> [HourEntry] {
+    private static func makeRandomHourEntriesForADay() -> [HourlyEntry] {
         (0...23).map({
-            HourEntry(
+            HourlyEntry(
                 time: "\($0):00",
                 icon: .random(),
                 temperature: "\(Int.random(in: 12...34))°"
@@ -30,7 +31,7 @@ enum WeatherData {
 }
 
 extension WeatherViewModel {
-    init(days: [DayEntry]) {
+    init(days: [DailyEntry]) {
         self.init(sections: [
             .daily: days,
             .hourly: days.first!.hours
